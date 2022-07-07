@@ -1,49 +1,49 @@
+import { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import logo from "./logo.png";
+import "./App.css";
+import LandAddress from "../contractsData/Land-address.json";
+import LandAbi from "../contractsData/Land.json";
 
-import logo from './logo.png';
-import './App.css';
- 
 function App() {
-  return (
-    <div>
-      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a
-          className="navbar-brand col-sm-3 col-md-2 ms-3"
-          href="http://www.dappuniversity.com/bootcamp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Dapp University
-        </a>
-      </nav>
-      <div className="container-fluid mt-5">
-        <div className="row">
-          <main role="main" className="col-lg-12 d-flex text-center">
-            <div className="content mx-auto mt-5">
-              <a
-                href="http://www.dappuniversity.com/bootcamp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={logo} className="App-logo" alt="logo"/>
-              </a>
-              <h1 className= "mt-5">Dapp University Starter Kit</h1>
-              <p>
-                Edit <code>src/frontend/components/App.js</code> and save to reload.
-              </p>
-              <a
-                className="App-link"
-                href="http://www.dappuniversity.com/bootcamp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LEARN BLOCKCHAIN <u><b>NOW! </b></u>
-              </a>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-  );
+  const [loading, setLoading] = useState(true);
+  const [account, setAccount] = useState(null);
+  const [landContract, setLandContract] = useState(null);
+  const [cost, setCost] = useState(null);
+  const [buildings, setBuildings] = useState(null);
+
+  useEffect(() => {
+    web3Handler();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const web3Handler = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setAccount(accounts[0]);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      loadBlockChainData(signer);
+    }
+  };
+
+  const loadBlockChainData = async (signer) => {
+    const landContract = new ethers.Contract(
+      LandAddress.address,
+      LandAbi.abi,
+      signer
+    );
+    setLandContract(landContract);
+
+    setCost(await landContract.cost());
+
+    setBuildings(await landContract.getBuildings());
+
+    setLoading(false);
+  };
+
+  return <div>Virtual land</div>;
 }
 
 export default App;
