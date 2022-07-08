@@ -30,19 +30,19 @@ contract Land is ERC721{
     constructor(string memory _name,string memory _symbol,uint _cost) ERC721(_name,_symbol){
         cost=_cost;
         buildings.push(
-            Building("City Hall",address(0x0),0,0,0,10,10,10)
+            Building("City Hall", address(0x0), 0, 0, 0, 10, 10, 10)
         );
         buildings.push(
-            Building("City Mall",address(0x0),0,10,0,10,5,3)
+            Building("Stadium", address(0x0), 0, 10, 0, 10, 5, 3)
         );
         buildings.push(
-            Building("City Plaza",address(0x0),-10,0,0,10,5,3)
+            Building("University", address(0x0), 0, -10, 0, 10, 5, 3)
         );
         buildings.push(
-            Building("City Garden",address(0x0),10,0,0,5,25,5)
+            Building("Shopping Plaza 1", address(0x0), 10, 0, 0, 5, 25, 5)
         );
         buildings.push(
-            Building("JFK library",address(0x0),-10,0,0,5,25,5)
+            Building("Shopping Plaza 2", address(0x0), -10, 0, 0, 5, 25, 5)
         );
     }
 

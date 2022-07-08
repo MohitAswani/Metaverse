@@ -42,6 +42,7 @@ describe("Land", function () {
   describe("Minting", () => {
     describe("Success", () => {
       beforeEach(async () => {
+        console.log(addr1);
         await land.connect(addr1).mint(1, { value: COST });
       });
 

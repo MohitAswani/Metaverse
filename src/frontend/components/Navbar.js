@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 const NavBar = ({ web3Handler, account }) => {
   return (
     <nav className="flex-between">
-      <a className="flex">
+      <a className="flex" href="https://github.com/dappuniversity/metaverse">
         <img src={logo} className="App-logo" alt="logo"/>
         Metaverse
       </a>
