@@ -18,7 +18,6 @@ const toWei = (num) => ethers.utils.parseEther(num.toString());
 const fromWei = (num) => ethers.utils.formatEther(num);
 
 function App() {
-  const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState(null);
   const [landContract, setLandContract] = useState(null);
   const [cost, setCost] = useState(null);
@@ -57,8 +56,6 @@ function App() {
     setCost(fromWei(await landContract.cost()));
 
     setBuildings(await landContract.getBuildings());
-
-    setLoading(false);
   };
 
   const buyHandler = async (_id) => {
@@ -67,10 +64,11 @@ function App() {
         await landContract.mint(_id, { from: account, value: toWei(cost) })
       ).wait();
 
-      setBuildings(await landContract.getBuildings());
+      const updatedBuildings = await landContract.getBuildings();
+      setBuildings(updatedBuildings);
 
-      setLandName(buildings[_id - 1].name);
-      setLandOwner(buildings[_id - 1].owner);
+      setLandName(updatedBuildings[_id - 1].name);
+      setLandOwner(updatedBuildings[_id - 1].owner);
       setHasOwner(true);
     } catch (error) {
       console.log(error);
