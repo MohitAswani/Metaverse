@@ -12,7 +12,7 @@ module.exports = {
   networks: {
     mumbai: {
       url: process.env.MUMBAI_ALCHEMY_URL,
-      account: [process.env.MUMBAI_PRIVATE_KEY],
+      accounts: [process.env.MUMBAI_PRIVATE_KEY],
     },
     goerli: {
       url: process.env.GOERLI_INFURA_URL,
