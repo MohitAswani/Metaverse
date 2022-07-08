@@ -12,7 +12,7 @@ async function main() {
 
   const NAME="METAVERSE buildings";
   const SYMBOL="META";
-  const COST=toWei(1);
+  const COST=toWei(0.001);
 
   const Land=await ethers.getContractFactory("Land");
 

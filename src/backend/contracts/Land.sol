@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 // Now our contract inherits from ERC721 contract.
 contract Land is ERC721{
 
-    uint public cost = 0.01 ether;
+    uint public cost = 1 ether;
     uint public maxSupply = 5;
     uint public totalSupply = 0;
 
